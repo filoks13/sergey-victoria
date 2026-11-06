@@ -26,10 +26,10 @@ window.WEDDING = {
   // Фото: положите файлы в папку img/. Если файла нет — показывается
   // аккуратная декоративная заглушка, сайт не «ломается».
   photos: {
-    hero:     'img/hero.jpg',      // обложка (вертикальное фото пары)
-    ceremony: 'img/ceremony.jpg',  // обрядный зал ратуши
-    banquet:  'img/banquet.jpg',   // Veranda by Gazda
-    closing:  'img/closing.jpg',   // финальное фото
+    hero:     'img/hero.jpg',      // обложка (вертикальное фото пары, 3:4)
+    ceremony: '',                  // обрядный зал ратуши — например 'img/ceremony.jpg'
+    banquet:  '',                  // Veranda by Gazda — например 'img/banquet.jpg'
+    closing:  'img/closing.jpg',   // финальное фото (3:4)
   },
 
   // ---------------- ТРАНСЛЯЦИЯ ----------------
