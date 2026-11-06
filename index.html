@@ -12,7 +12,7 @@
 <meta property="og:description" content="Приглашение на свадьбу · Прага">
 <!-- Превью ссылки в мессенджерах: после публикации раскомментируйте и укажите ПОЛНЫЙ адрес картинки -->
 <!-- <meta property="og:image" content="https://ВАШ-АДРЕС/img/og.jpg"> -->
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%234b1220' d='M12 21s-7.5-4.6-9.6-9.2C.9 8.4 2.9 4.5 6.6 4.5c2.1 0 3.6 1.2 4.4 2.6.8-1.4 2.3-2.6 4.4-2.6 3.7 0 5.7 3.9 4.2 7.3C19.5 16.4 12 21 12 21z'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%234b1220' d='M12 21C12 21 2 14.6 2 8.6 2 5.5 4.4 3.2 7.3 3.2c2 0 3.7 1.1 4.7 2.8 1-1.7 2.7-2.8 4.7-2.8 2.9 0 5.3 2.3 5.3 5.4C22 14.6 12 21 12 21z'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Great+Vibes&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -122,7 +122,7 @@ section{position:relative;padding:clamp(76px,13vw,128px) 0}
 .cal-grid .d.weekend{color:var(--muted)}
 .cal-grid .d.is-date{color:var(--cream);font-weight:600}
 .cal-grid .d.is-date svg{position:absolute;width:44px;height:44px;fill:var(--wine);animation:beat 2.6s ease-in-out infinite}
-.cal-grid .d.is-date b{position:relative;font-weight:600;margin-top:-3px}
+.cal-grid .d.is-date b{position:relative;font-weight:600;line-height:1;margin-top:-2px}
 @keyframes beat{0%,100%{transform:scale(1)}12%{transform:scale(1.08)}24%{transform:scale(1)}}
 .cal-actions{margin-top:28px}
 .cal-actions .eyebrow{margin-bottom:12px}
@@ -361,7 +361,7 @@ section{position:relative;padding:clamp(76px,13vw,128px) 0}
     <p class="eyebrow reveal" data-i18n="dress.eyebrow"></p>
     <h2 class="h2 reveal" data-i18n-html="dress.title"></h2>
     <p class="dress-lead reveal" data-i18n="dress.lead"></p>
-    <div class="orn reveal" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 2.9 4.5 6.6 4.5c2.1 0 3.6 1.2 4.4 2.6.8-1.4 2.3-2.6 4.4-2.6 3.7 0 5.7 3.9 4.2 7.3C19.5 16.4 12 21 12 21z"/></svg></div>
+    <div class="orn reveal" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21C12 21 2 14.6 2 8.6 2 5.5 4.4 3.2 7.3 3.2c2 0 3.7 1.1 4.7 2.8 1-1.7 2.7-2.8 4.7-2.8 2.9 0 5.3 2.3 5.3 5.4C22 14.6 12 21 12 21z"/></svg></div>
     <p class="reveal" data-i18n="dress.text"></p>
   </div>
 </section>
@@ -432,7 +432,7 @@ section{position:relative;padding:clamp(76px,13vw,128px) 0}
       </div>
 
       <div class="done" id="rsvp-done" hidden>
-        <svg class="done-heart" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 2.9 4.5 6.6 4.5c2.1 0 3.6 1.2 4.4 2.6.8-1.4 2.3-2.6 4.4-2.6 3.7 0 5.7 3.9 4.2 7.3C19.5 16.4 12 21 12 21z"/></svg>
+        <svg class="done-heart" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21C12 21 2 14.6 2 8.6 2 5.5 4.4 3.2 7.3 3.2c2 0 3.7 1.1 4.7 2.8 1-1.7 2.7-2.8 4.7-2.8 2.9 0 5.3 2.3 5.3 5.4C22 14.6 12 21 12 21z"/></svg>
         <h3 id="done-title"></h3>
         <p id="done-text"></p>
         <div class="row">
@@ -602,7 +602,7 @@ section{position:relative;padding:clamp(76px,13vw,128px) 0}
 
   var ATTEND = ['both', 'ceremony', 'banquet', 'online', 'no'];
   var DRINKS = ['red', 'white', 'sparkling', 'beer', 'whisky', 'cognac', 'vodka', 'cocktails', 'none'];
-  var HEART = '<path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 2.9 4.5 6.6 4.5c2.1 0 3.6 1.2 4.4 2.6.8-1.4 2.3-2.6 4.4-2.6 3.7 0 5.7 3.9 4.2 7.3C19.5 16.4 12 21 12 21z"/>';
+  var HEART = '<path d="M12 21C12 21 2 14.6 2 8.6 2 5.5 4.4 3.2 7.3 3.2c2 0 3.7 1.1 4.7 2.8 1-1.7 2.7-2.8 4.7-2.8 2.9 0 5.3 2.3 5.3 5.4C22 14.6 12 21 12 21z"/>';
   var ICONS = {
     ceremony: '<svg viewBox="0 0 48 48"><circle cx="19" cy="28" r="10"/><circle cx="29" cy="28" r="10"/><path d="M26 14l3-4 3 4-3 3z"/></svg>',
     banquet: '<svg viewBox="0 0 48 48"><path d="M13 8h9l-.8 9a3.7 3.7 0 0 1-7.4 0z"/><path d="M17.5 21v15M13.5 36h8"/><path d="M26 8h9l-.8 9a3.7 3.7 0 0 1-7.4 0z"/><path d="M30.5 21v15M26.5 36h8"/></svg>'
