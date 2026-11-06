@@ -197,6 +197,15 @@ section{position:relative;padding:clamp(76px,13vw,128px) 0}
 .choice.is-on .tick::after{transform:scale(1)}
 .choice:has(input:focus-visible){box-shadow:0 0 0 3px rgba(75,18,32,.18)}
 .choice-text{font-size:15.5px;line-height:1.35}
+.headcount{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-top:16px;padding:14px 14px 14px 18px;background:#fbf1ef;border:1px solid rgba(75,18,32,.18);border-radius:14px;animation:stepIn .4s var(--ease)}
+.headcount[hidden]{display:none}
+.headcount-label{font-size:15px;line-height:1.35}
+.headcount-label small{display:block;margin-top:2px;font-size:12.5px;color:var(--muted)}
+.stepper{flex:none;display:flex;align-items:center;gap:4px}
+.stepper-btn{display:grid;place-items:center;width:40px;height:40px;padding:0;border:1px solid var(--line);border-radius:50%;background:#fff;color:var(--wine);font:inherit;font-size:20px;line-height:1;cursor:pointer;transition:border-color .2s,opacity .2s;-webkit-tap-highlight-color:transparent}
+.stepper-btn:hover:not(:disabled){border-color:var(--wine)}
+.stepper-btn:disabled{opacity:.35;cursor:default}
+.stepper-val{min-width:32px;text-align:center;font-family:var(--serif);font-size:28px;line-height:1;color:var(--wine);font-variant-numeric:lining-nums tabular-nums}
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
 .chip{position:relative;display:inline-flex;align-items:center;padding:10px 16px;background:#fff;border:1px solid var(--line);border-radius:999px;font-size:14.5px;cursor:pointer;transition:background .2s,color .2s,border-color .2s;-webkit-tap-highlight-color:transparent}
 .chip input{position:absolute;opacity:0;pointer-events:none}
@@ -398,6 +407,15 @@ section{position:relative;padding:clamp(76px,13vw,128px) 0}
           <fieldset class="step" data-step="attend">
             <legend class="q" data-i18n="q.attend"></legend>
             <div class="choices" id="choices"></div>
+            <div class="headcount" id="headcount" hidden>
+              <span class="headcount-label"><span data-i18n="f.count"></span><small data-i18n="f.count.hint"></small></span>
+              <span class="stepper">
+                <button type="button" class="stepper-btn" data-d="-1" aria-label="−1">−</button>
+                <output class="stepper-val" id="count-val" aria-live="polite">1</output>
+                <button type="button" class="stepper-btn" data-d="1" aria-label="+1">+</button>
+              </span>
+              <input type="hidden" name="guests" value="1">
+            </div>
           </fieldset>
 
           <fieldset class="step" data-step="banquet">
@@ -537,6 +555,7 @@ section{position:relative;padding:clamp(76px,13vw,128px) 0}
       'err.net': 'Не получилось отправить. Проверьте интернет и попробуйте ещё раз.',
       'q.name': 'Как вас зовут?', 'f.name': 'Имя и фамилия', 'f.name.ph': 'Например, Анна Иванова',
       'f.companions': 'С кем вы придёте? (необязательно)', 'f.companions.ph': 'Имя спутника или детей',
+      'f.count': 'Сколько вас будет?', 'f.count.hint': 'Считая вас и детей',
       'q.attend': 'Сможете ли вы быть с нами?',
       'att.both': 'Да, и на церемонии, и на банкете', 'att.ceremony': 'Только на церемонии в ратуше',
       'att.banquet': 'Только на банкете', 'att.online': 'Буду смотреть онлайн', 'att.no': 'К сожалению, не смогу',
@@ -573,6 +592,7 @@ section{position:relative;padding:clamp(76px,13vw,128px) 0}
       'err.net': 'Couldn’t send. Please check your connection and try again.',
       'q.name': 'What’s your name?', 'f.name': 'Full name', 'f.name.ph': 'e.g. Anna Smith',
       'f.companions': 'Who is coming with you? (optional)', 'f.companions.ph': 'Partner’s or children’s names',
+      'f.count': 'How many of you?', 'f.count.hint': 'Including yourself and children',
       'q.attend': 'Will you be there?',
       'att.both': 'Yes — ceremony and reception', 'att.ceremony': 'Ceremony only',
       'att.banquet': 'Reception only', 'att.online': 'I’ll watch online', 'att.no': 'Sadly, I can’t make it',
@@ -901,6 +921,24 @@ section{position:relative;padding:clamp(76px,13vw,128px) 0}
   var field = function (n) { return form.elements.namedItem(n); };
   var attendance = function () { var r = field('attendance'); return r ? r.value : ''; };
   var hasBanquet = function () { var a = attendance(); return a === 'both' || a === 'banquet'; };
+  var inPerson = function () { var a = attendance(); return a === 'both' || a === 'ceremony' || a === 'banquet'; };
+  var MAX_GUESTS = 10;
+  function setCount(n) {
+    n = Math.min(MAX_GUESTS, Math.max(1, parseInt(n, 10) || 1));
+    field('guests').value = n;
+    $('#count-val').textContent = n;
+    $$('.stepper-btn', form).forEach(function (b) { b.disabled = (+b.getAttribute('data-d') < 0 && n <= 1) || (+b.getAttribute('data-d') > 0 && n >= MAX_GUESTS); });
+  }
+  // постоянный id устройства: повторная отправка анкеты обновит строку в таблице, а не добавит новую
+  function deviceId() {
+    var id = store.get('wedding.rid');
+    if (typeof id === 'string' && /^[a-z0-9]{8,40}$/.test(id)) return id;
+    var a = new Uint8Array(12);
+    try { crypto.getRandomValues(a); } catch (e) { for (var i = 0; i < a.length; i++) a[i] = Math.random() * 256; }
+    id = Array.prototype.map.call(a, function (x) { return (x % 36).toString(36); }).join('') + Date.now().toString(36);
+    store.set('wedding.rid', id);
+    return id;
+  }
   function flow() { var f = ['name', 'attend']; if (hasBanquet()) f.push('banquet'); f.push('wish'); return f; }
 
   function renderStep(focus) {
@@ -913,6 +951,7 @@ section{position:relative;padding:clamp(76px,13vw,128px) 0}
     $('#btn-back').classList.toggle('on', curStep > 0);
     $('#btn-next').textContent = curStep === f.length - 1 ? t('rsvp.send') : t('rsvp.next');
     $('#song-field').hidden = !hasBanquet();
+    $('#headcount').hidden = !inPerson();
     $('#demo-note').hidden = !!C.rsvpEndpoint;
     if (focus) {
       // фокус в поле только на шаге с именем — на остальных не открываем клавиатуру на телефоне
@@ -940,6 +979,10 @@ section{position:relative;padding:clamp(76px,13vw,128px) 0}
     }
     if (el.name === 'drinks') el.closest('.chip').classList.toggle('is-on', el.checked);
   });
+  form.addEventListener('click', function (e) {
+    var b = e.target.closest('.stepper-btn');
+    if (b) setCount(+field('guests').value + +b.getAttribute('data-d'));
+  });
   $('#btn-back').addEventListener('click', function () { if (curStep > 0) { curStep--; showError(null); renderStep(true); } });
   form.addEventListener('submit', function (e) {
     e.preventDefault();
@@ -955,6 +998,7 @@ section{position:relative;padding:clamp(76px,13vw,128px) 0}
     return {
       name: field('guest_name').value.trim(),
       companions: field('companions').value.trim(),
+      guests: inPerson() ? +field('guests').value || 1 : 0,
       attendance: a,
       attendance_label: UI.ru['att.' + a] || a,
       drinks: drinks.join(', '),
@@ -964,6 +1008,7 @@ section{position:relative;padding:clamp(76px,13vw,128px) 0}
       song: banquet ? field('song').value.trim() : '',
       lang: lang,
       timezone: userTZ,
+      rid: deviceId(),
       website: field('website').value
     };
   }
@@ -1008,6 +1053,7 @@ section{position:relative;padding:clamp(76px,13vw,128px) 0}
     if (!d) return;
     field('guest_name').value = d.name || '';
     field('companions').value = d.companions || '';
+    setCount(d.guests || 1);
     $$('input[name="attendance"]', form).forEach(function (i) { i.checked = i.value === d.attendance; });
     var dr = (d.drinks || '').split(', ');
     $$('input[name="drinks"]', form).forEach(function (i) { i.checked = dr.indexOf(UI.ru['dr.' + i.value]) > -1; });
@@ -1074,6 +1120,7 @@ section{position:relative;padding:clamp(76px,13vw,128px) 0}
   });
 
   var saved = store.get('wedding.rsvp');
+  setCount(1);
   applyText();
   if (saved && saved.name) { prefill(saved); renderChoices(); lastAnswer = saved; showDone(saved, true); }
   renderStep(false);

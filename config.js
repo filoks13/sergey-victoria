@@ -16,8 +16,9 @@ window.WEDDING = {
   end:      '2027-01-22T23:00:00+01:00',   // конец — для календаря
 
   // Куда отправлять ответы анкеты: URL веб-приложения Google Apps Script
-  // (см. ИНСТРУКЦИЯ.md, шаг 2). Пока пусто — анкета работает в демо-режиме.
-  rsvpEndpoint: '',
+  // (Google Таблица «Свадьба — анкета гостей», аккаунт filoks13@gmail.com).
+  // Пусто — анкета работает в демо-режиме и ничего не сохраняет.
+  rsvpEndpoint: 'https://script.google.com/macros/s/AKfycbwPzuQBYlRReJPTjWkHWY9tGmixG1VspCX4QE-SijHQSLUKS1TPtr6MHn8tCZYnhwnJ2Q/exec',
 
   // До какого числа ждём ответ (пусто — строка не показывается). Пример: '2027-01-08'
   rsvpDeadline: '',
