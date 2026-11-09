@@ -87,8 +87,15 @@ section{position:relative;padding:clamp(76px,13vw,128px) 0}
 .arch-frame{padding:9px;border:1px solid var(--line-light);border-radius:999px 999px 10px 10px}
 
 /* ---------- HERO ---------- */
-.hero{position:relative;min-height:100vh;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:92px 16px 96px;text-align:center;color:var(--cream);overflow:hidden;
+.hero{position:relative;min-height:100vh;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:92px 16px calc(96px + env(safe-area-inset-bottom));text-align:center;color:var(--cream);overflow:hidden;
   background:radial-gradient(110% 70% at 50% 18%,#5d1a26 0%,var(--wine) 48%,var(--wine-deep) 100%)}
+/* фото на весь экран (обложка и финал) */
+.bg-photo{position:absolute;inset:0;background-size:cover;background-repeat:no-repeat;background-position:var(--focus,50% 30%);opacity:0;transform:scale(1.06);transition:opacity 1.2s var(--ease),transform 7s var(--ease)}
+.bg-photo.has-photo{opacity:1;transform:scale(1)}
+.hero-shade{position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(46,9,17,.6) 0%,rgba(46,9,17,0) 22%,rgba(46,9,17,0) 40%,rgba(46,9,17,.62) 64%,rgba(35,7,13,.93) 100%)}
+.vswitch{position:fixed;z-index:60;top:calc(14px + env(safe-area-inset-top));left:50%;transform:translateX(-50%);display:flex;padding:3px;border-radius:999px;background:rgba(46,9,17,.6);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border:1px solid rgba(244,237,230,.35);box-shadow:0 10px 30px -10px rgba(0,0,0,.5)}
+.vswitch button{border:0;background:none;color:var(--cream);font:600 10.5px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;padding:9px 13px;border-radius:999px;cursor:pointer;opacity:.7}
+.vswitch button[aria-pressed="true"]{background:var(--cream);color:var(--wine);opacity:1}
 .grain{position:absolute;inset:0;pointer-events:none;opacity:.22;mix-blend-mode:overlay;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E")}
 .hero-mono{position:absolute;top:calc(18px + env(safe-area-inset-top));left:18px;font-family:var(--serif);font-style:italic;font-size:20px;text-decoration:none;letter-spacing:.04em;opacity:.85}
@@ -96,12 +103,7 @@ section{position:relative;padding:clamp(76px,13vw,128px) 0}
 .lang button{border:0;background:none;color:var(--cream);font:600 10.5px/1 var(--sans);letter-spacing:.16em;padding:8px 11px;border-radius:999px;cursor:pointer;opacity:.65}
 .lang button[aria-pressed="true"]{background:var(--cream);color:var(--wine);opacity:1}
 .hero-inner{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;width:100%}
-.hero-frame{width:min(64vw,290px)}
-.hero-arch{aspect-ratio:3/4.1}
-.hero-arch.has-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(46,9,17,0) 55%,rgba(46,9,17,.55) 100%)}
-.mono-big{position:relative;font-family:var(--serif);font-style:italic;font-weight:300;font-size:64px;line-height:1;letter-spacing:.02em}
-.fallback-date{position:relative;font-size:10.5px;letter-spacing:.38em;opacity:.7}
-.names{position:relative;z-index:3;margin:-.62em 0 0;font-family:var(--script);font-weight:400;font-size:clamp(58px,17vw,108px);line-height:.9;text-shadow:0 2px 24px rgba(46,9,17,.45)}
+.names{position:relative;z-index:3;margin:14px 0 0;font-family:var(--script);font-weight:400;font-size:clamp(58px,17vw,108px);line-height:.9;text-shadow:0 2px 24px rgba(46,9,17,.45)}
 .names span{display:block}
 .names .n1{transform:translateX(-14%)}
 .names .amp{font-family:var(--serif);font-style:italic;font-weight:300;font-size:.5em;line-height:1;margin:-.18em 0 -.12em;opacity:.8}
@@ -271,10 +273,22 @@ section{position:relative;padding:clamp(76px,13vw,128px) 0}
 .contact-list{display:flex;flex-direction:column;align-items:center;gap:10px}
 
 /* ---------- CLOSING ---------- */
-.closing{background:var(--wine);text-align:center;padding-bottom:64px}
-.closing-frame{width:min(68vw,320px);margin:0 auto}
-.closing .arch{aspect-ratio:3/4}
-.closing-text{margin:44px auto 0;max-width:14em;font-family:var(--serif);font-weight:300;font-style:italic;font-size:clamp(28px,7vw,38px);line-height:1.3}
+.closing{position:relative;min-height:100vh;min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;background:var(--wine-deep);text-align:center;padding:96px 0 calc(40px + env(safe-area-inset-bottom));overflow:hidden}
+.closing-shade{position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(46,9,17,.35) 0%,rgba(46,9,17,0) 28%,rgba(46,9,17,.5) 56%,rgba(30,6,11,.95) 100%)}
+.closing-inner{position:relative;z-index:2}
+.closing-text,.hero-lead,.lead{text-wrap:balance}
+/* широкий экран: фото слева растворяется в винном фоне, текст справа */
+@media (min-width:900px) and (min-aspect-ratio:1/1){
+  .hero,.closing{flex-direction:row;justify-content:flex-end;align-items:center;padding:96px 0}
+  .hero .bg-photo,.closing .bg-photo{right:38%;-webkit-mask-image:linear-gradient(90deg,#000 62%,transparent 100%);mask-image:linear-gradient(90deg,#000 62%,transparent 100%)}
+  .hero-shade,.closing-shade{background:linear-gradient(180deg,rgba(46,9,17,.45) 0%,rgba(46,9,17,0) 20%,rgba(46,9,17,0) 75%,rgba(46,9,17,.4) 100%)}
+  .hero-inner,.closing-inner{width:46%;margin:0;padding:0 4vw;flex:none}
+  .closing-inner.wrap{max-width:none}
+  .hero .names{font-size:clamp(56px,7.4vw,112px)}
+  .hero .names .n1{transform:translateX(-10%)}
+  .hero .names .n2{transform:translateX(8%)}
+}
+.closing-text{margin:0 auto;max-width:14em;font-family:var(--serif);font-weight:300;font-style:italic;font-size:clamp(28px,7vw,38px);line-height:1.3}
 .closing-sign{margin:30px 0 0;font-size:11px;letter-spacing:.34em;text-transform:uppercase;opacity:.7}
 .closing-names{margin:6px 0 0;font-family:var(--script);font-size:clamp(46px,12vw,68px);line-height:1.1}
 .foot{margin-top:56px;font-size:11px;letter-spacing:.3em;opacity:.45}
@@ -305,6 +319,8 @@ section{position:relative;padding:clamp(76px,13vw,128px) 0}
 
 <!-- ================= ОБЛОЖКА ================= -->
 <header class="hero" id="top">
+  <div class="bg-photo" data-photo="hero" aria-hidden="true"></div>
+  <div class="hero-shade" aria-hidden="true"></div>
   <div class="grain" aria-hidden="true"></div>
   <a class="hero-mono" href="#top" data-mono></a>
   <div class="lang" role="group" aria-label="Language">
@@ -313,11 +329,6 @@ section{position:relative;padding:clamp(76px,13vw,128px) 0}
   </div>
   <div class="hero-inner">
     <p class="eyebrow" data-i18n="hero.eyebrow"></p>
-    <div class="arch-frame hero-frame">
-      <div class="arch hero-arch" data-photo="hero">
-        <div class="arch-fallback"><span class="mono-big" data-mono-big></span><span class="fallback-date" data-date-short></span></div>
-      </div>
-    </div>
     <h1 class="names"><span class="n1" data-name="0"></span><span class="amp">&amp;</span><span class="n2" data-name="1"></span></h1>
     <p class="hero-date"><span data-date-dots></span><span class="sep"></span><span data-i18n="hero.place"></span></p>
     <p class="hero-lead" data-i18n="hero.lead"></p>
@@ -524,12 +535,9 @@ section{position:relative;padding:clamp(76px,13vw,128px) 0}
 
 <!-- ================= ФИНАЛ ================= -->
 <footer class="closing on-wine">
-  <div class="wrap">
-    <div class="arch-frame closing-frame reveal">
-      <div class="arch" data-photo="closing">
-        <div class="arch-fallback"><svg viewBox="0 0 48 48"><path d="M24 40s-14-8.6-18-17.2C3.2 16.5 7 9 14 9c4 0 6.8 2.3 10 6 3.2-3.7 6-6 10-6 7 0 10.8 7.5 8 13.8C38 31.4 24 40 24 40z"/></svg></div>
-      </div>
-    </div>
+  <div class="bg-photo" data-photo="closing" aria-hidden="true"></div>
+  <div class="closing-shade" aria-hidden="true"></div>
+  <div class="wrap closing-inner">
     <p class="closing-text reveal" data-i18n="closing.text"></p>
     <p class="closing-sign reveal" data-i18n="closing.sign"></p>
     <p class="closing-names reveal"><span data-name="0"></span> &amp; <span data-name="1"></span></p>
@@ -644,6 +652,37 @@ section{position:relative;padding:clamp(76px,13vw,128px) 0}
     get: function (k) { try { return JSON.parse(localStorage.getItem(k)); } catch (e) { return null; } },
     set: function (k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
   };
+
+  /* ---------- варианты оформления (для сравнения: ?v=color / ?v=bw) ---------- */
+  var VARIANTS = C.variants || {};
+  var qv = new URLSearchParams(location.search).get('v');
+  var compareMode = !!(qv && VARIANTS[qv]);
+  var variant = compareMode ? qv : (VARIANTS[C.variant] ? C.variant : Object.keys(VARIANTS)[0]);
+  function applyVariant(v) {
+    variant = v;
+    C.photos = Object.assign({}, C.photos || {}, ((VARIANTS[v] || {}).photos) || {});
+    document.documentElement.setAttribute('data-variant', v || '');
+    Array.prototype.forEach.call(document.querySelectorAll('[data-photo]'), function (el) {
+      var f = (C.photoFocus || {})[el.getAttribute('data-photo')];
+      if (f) el.style.setProperty('--focus', f);
+    });
+  }
+  if (variant) applyVariant(variant);
+  if (compareMode) {
+    var vsw = document.createElement('div');
+    vsw.className = 'vswitch'; vsw.setAttribute('role', 'group'); vsw.setAttribute('aria-label', 'Вариант оформления');
+    vsw.innerHTML = Object.keys(VARIANTS).map(function (k) {
+      return '<button type="button" data-v="' + k + '" aria-pressed="' + (k === variant) + '">' + String(VARIANTS[k].label || k).replace(/[<>&"]/g, '') + '</button>';
+    }).join('');
+    document.body.appendChild(vsw);
+    vsw.addEventListener('click', function (e) {
+      var b = e.target.closest('[data-v]'); if (!b) return;
+      applyVariant(b.getAttribute('data-v'));
+      Array.prototype.forEach.call(vsw.querySelectorAll('[data-v]'), function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+      try { var u = new URL(location.href); u.searchParams.set('v', variant); history.replaceState(null, '', u); } catch (err) {}
+      loadPhotos();
+    });
+  }
   var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); };
 
   /* ---------------- язык ---------------- */

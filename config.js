@@ -26,10 +26,22 @@ window.WEDDING = {
   // Фото: положите файлы в папку img/. Если файла нет — показывается
   // аккуратная декоративная заглушка, сайт не «ломается».
   photos: {
-    hero:     'img/hero.jpg',      // обложка (вертикальное фото пары, 3:4)
-    ceremony: '',                  // обрядный зал ратуши — например 'img/ceremony.jpg'
-    banquet:  '',                  // Veranda by Gazda — например 'img/banquet.jpg'
-    closing:  'img/closing.jpg',   // финальное фото (3:4)
+    hero:     'img/hero-color.jpg',    // обложка, фото на весь экран (вертикальное)
+    ceremony: '',                      // обрядный зал ратуши — например 'img/ceremony.jpg'
+    banquet:  '',                      // Veranda by Gazda — например 'img/banquet.jpg'
+    closing:  'img/closing-color.jpg', // финальный экран, фото на весь экран
+  },
+  // Какая часть фото всегда в кадре (по горизонтали и вертикали) — чтобы лица не обрезались.
+  photoFocus: { hero: '58% 28%', closing: '55% 42%' },
+
+  // ВАРИАНТЫ ОФОРМЛЕНИЯ — для сравнения.
+  //   сайт/?v=color — цветные фото, сайт/?v=bw — чёрно-белые
+  //   (с параметром вверху появляется переключатель «Цвет / Ч/Б»).
+  // Без параметра гости видят вариант из variant.
+  variant: 'color',
+  variants: {
+    color: { label: 'Цвет', photos: { hero: 'img/hero-color.jpg', closing: 'img/closing-color.jpg' } },
+    bw:    { label: 'Ч/Б',  photos: { hero: 'img/hero-bw.jpg',    closing: 'img/closing-bw.jpg' } },
   },
 
   // ---------------- ТРАНСЛЯЦИЯ ----------------
@@ -52,9 +64,9 @@ window.WEDDING = {
 
     // Часы в блоке трансляции
     cities: [
-      { tz: 'Europe/Prague',    ru: 'Прага',    en: 'Prague' },
-      { tz: 'Europe/Moscow',    ru: 'Москва',   en: 'Moscow' },
-      { tz: 'America/New_York', ru: 'Нью-Йорк', en: 'New York' },
+      { tz: 'Europe/Prague',      ru: 'Прага',        en: 'Prague' },
+      { tz: 'Europe/Volgograd',   ru: 'Волгоград',    en: 'Volgograd' },
+      { tz: 'Asia/Yekaterinburg', ru: 'Екатеринбург', en: 'Yekaterinburg' },
     ],
   },
 
@@ -104,7 +116,7 @@ window.WEDDING = {
   // <em>…</em> — курсив в заголовках.
   text: {
     ru: {
-      'hero.eyebrow':   'Приглашение на свадьбу',
+      'hero.eyebrow':   'Мы женимся',
       'hero.place':     'Прага',
       'hero.lead':      'Совсем скоро наступит день, который станет для нас особенным',
 
@@ -129,7 +141,7 @@ window.WEDDING = {
 
       'live.eyebrow':   'Для тех, кто далеко',
       'live.title':     'Свадьба <em>онлайн</em>',
-      'live.lead':      'Не получается приехать в Прагу? Смотрите церемонию в прямом эфире — просто откройте эту страницу в нужное время. Вам не нужно ничего включать и ни с кем разговаривать: только смотреть и радоваться вместе с нами.',
+      'live.lead':      'Мы бы очень хотели разделить этот день с вами. Ничего специально делать не нужно — просто откройте эту страницу и смотрите вместе с нами. Будем очень счастливы, что вы рядом, хотя бы онлайн.',
       'live.tip1':      'Звук трансляции включается кнопкой в самом плеере.',
       'live.tip2':      'Если видео не грузится или тормозит — переключитесь на другой плеер.',
 
@@ -140,11 +152,11 @@ window.WEDDING = {
       'album.btn':      'Открыть альбом',
       'contacts.title': 'Остались вопросы?',
 
-      'closing.text':   'Будем рады видеть вас и провести этот день вместе',
+      'closing.text':   'Будем счастливы провести этот день с вами',
       'closing.sign':   'С любовью,',
     },
     en: {
-      'hero.eyebrow':   'Wedding invitation',
+      'hero.eyebrow':   'We’re getting married',
       'hero.place':     'Prague',
       'hero.lead':      'Very soon comes a day that will be truly special for us',
 
@@ -169,7 +181,7 @@ window.WEDDING = {
 
       'live.eyebrow':   'For those far away',
       'live.title':     'Watch <em>online</em>',
-      'live.lead':      'Can’t make it to Prague? Watch the ceremony live — just open this page at the right time. Nothing to set up and no one to talk to: simply watch and celebrate with us.',
+      'live.lead':      'We would love to share this day with you. There’s nothing special to do — just open this page and watch with us. We’ll be so happy to have you with us, even if only online.',
       'live.tip1':      'Turn on the sound with the button inside the player.',
       'live.tip2':      'If the video doesn’t load or keeps buffering, switch to the other player.',
 
@@ -180,7 +192,7 @@ window.WEDDING = {
       'album.btn':      'Open the album',
       'contacts.title': 'Any questions?',
 
-      'closing.text':   'We can’t wait to see you and spend this day together',
+      'closing.text':   'We’ll be so happy to spend this day with you',
       'closing.sign':   'With love,',
     },
   },
