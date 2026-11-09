@@ -26,13 +26,15 @@ window.WEDDING = {
   // Фото: положите файлы в папку img/. Если файла нет — показывается
   // аккуратная декоративная заглушка, сайт не «ломается».
   photos: {
-    hero:     'img/hero-color.jpg',    // обложка, фото на весь экран (вертикальное)
+    hero:     'img/ring-color.jpg',    // обложка, фото на весь экран (кольцо)
     ceremony: '',                      // обрядный зал ратуши — например 'img/ceremony.jpg'
     banquet:  '',                      // Veranda by Gazda — например 'img/banquet.jpg'
-    closing:  'img/closing-color.jpg', // финальный экран, фото на весь экран
+    closing:  'img/look-color.jpg', // финальный экран, фото на весь экран (Вика смотрит в кадр)
   },
   // Какая часть фото всегда в кадре (по горизонтали и вертикали) — чтобы лица не обрезались.
-  photoFocus: { hero: '58% 28%', closing: '55% 42%' },
+  photoFocus: { hero: '55% 45%', closing: '58% 28%' },
+  // На телефоне поднять фото вверх (в % высоты экрана), чтобы текст снизу не закрывал главное.
+  photoLift:  { hero: '18%' },
 
   // ВАРИАНТЫ ОФОРМЛЕНИЯ — для сравнения.
   //   сайт/?v=color — цветные фото, сайт/?v=bw — чёрно-белые
@@ -40,8 +42,8 @@ window.WEDDING = {
   // Без параметра гости видят вариант из variant.
   variant: 'color',
   variants: {
-    color: { label: 'Цвет', photos: { hero: 'img/hero-color.jpg', closing: 'img/closing-color.jpg' } },
-    bw:    { label: 'Ч/Б',  photos: { hero: 'img/hero-bw.jpg',    closing: 'img/closing-bw.jpg' } },
+    color: { label: 'Цвет', photos: { hero: 'img/ring-color.jpg', closing: 'img/look-color.jpg' } },
+    bw:    { label: 'Ч/Б',  photos: { hero: 'img/ring-bw.jpg',    closing: 'img/look-bw.jpg' } },
   },
 
   // ---------------- ТРАНСЛЯЦИЯ ----------------
