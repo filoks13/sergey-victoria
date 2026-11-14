@@ -644,7 +644,8 @@ section{position:relative;padding:clamp(76px,13vw,128px) 0}
   var LIVE_START = new Date(L.start || C.start), LIVE_END = new Date(L.end || C.end);
   // плеер включается за 30 минут до начала эфира и остаётся час после конца; ?live=test — включить сразу (для проверки)
   var LIVE_TEST = new URLSearchParams(location.search).get('live') === 'test';
-  function playerOpen() { var now = Date.now(); return LIVE_TEST || (now >= LIVE_START - 30 * 60000 && now <= LIVE_END + 60 * 60000); }
+  // live.rehearsal: true в config.js — «репетиция»: плеер открыт для всех прямо сейчас, как в день свадьбы
+  function playerOpen() { var now = Date.now(); return LIVE_TEST || L.rehearsal === true || (now >= LIVE_START - 30 * 60000 && now <= LIVE_END + 60 * 60000); }
   var userTZ = (function () { try { return Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch (e) { return ''; } })();
   var RU_TZ = /^(Europe\/(Moscow|Kaliningrad|Samara|Volgograd|Saratov|Ulyanovsk|Astrakhan|Kirov)|Asia\/(Yekaterinburg|Omsk|Novosibirsk|Barnaul|Tomsk|Novokuznetsk|Krasnoyarsk|Irkutsk|Chita|Yakutsk|Khandyga|Vladivostok|Ust-Nera|Magadan|Sakhalin|Srednekolymsk|Kamchatka|Anadyr))$/;
 
