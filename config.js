@@ -83,7 +83,7 @@ window.WEDDING = {
   // ---------------- ЛОКАЦИИ ----------------
   places: [
     {
-      id: 'ceremony', time: '12:00',
+      id: 'ceremony', time: '12:30',
       address: 'Havlíčkovo náměstí 700/9, 130 00 Praha 3 – Žižkov',
       map: 'https://www.google.com/maps/search/?api=1&query=Havl%C3%AD%C4%8Dkovo+n%C3%A1m%C4%9Bst%C3%AD+700%2F9+Praha+3',
       ru: { label: 'Церемония', name: 'Жижковская ратуша', note: 'Обрядный зал · Matrika Úřadu městské části Praha 3' },
