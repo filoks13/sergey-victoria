@@ -85,7 +85,7 @@ window.WEDDING = {
       en: { label: 'Ceremony',  name: 'Žižkov Town Hall',  note: 'Wedding hall · Prague 3 Registry Office' },
     },
     {
-      id: 'banquet', time: '15:00',
+      id: 'banquet', time: '14:00',
       address: '',
       map: 'https://www.google.com/maps/search/?api=1&query=Veranda+by+Gazda+Praha',
       ru: { label: 'Банкет',    name: 'Veranda by Gazda', note: 'Праздничный обед и ужин' },
@@ -104,7 +104,7 @@ window.WEDDING = {
     { time: '13:30',
       ru: { title: 'Фотографии', text: 'Фотографируемся, чтобы запомнить этот день' },
       en: { title: 'Photos', text: 'Taking pictures to remember this day' } },
-    { time: '15:00',
+    { time: '14:00',
       ru: { title: 'Праздничный обед', text: '…плавно перетекающий в весёлый ужин · Veranda by Gazda' },
       en: { title: 'Celebration', text: 'A festive lunch flowing into a joyful dinner · Veranda by Gazda' } },
   ],
