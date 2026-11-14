@@ -19,7 +19,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
-<script src="config.js?v=20261114-2"></script>
+<script src="config.js?v=20261114-3"></script>
 <style>
 :root{
   --wine:#4b1220; --wine-deep:#2e0911; --wine-mid:#62202d; --wine-soft:#7a3542;
@@ -79,7 +79,7 @@ section{position:relative;padding:clamp(76px,13vw,128px) 0}
 .btn[disabled]{opacity:.55;pointer-events:none}
 
 /* arches */
-.arch{position:relative;overflow:hidden;border-radius:999px 999px 6px 6px;background:linear-gradient(180deg,var(--wine-soft) 0%,var(--wine-mid) 45%,var(--wine) 100%);background-size:cover;background-position:center}
+.arch{position:relative;overflow:hidden;border-radius:999px 999px 6px 6px;background:linear-gradient(180deg,var(--wine-soft) 0%,var(--wine-mid) 45%,var(--wine) 100%);background-size:cover;background-position:var(--focus,center)}
 .arch.has-photo .arch-fallback{display:none}
 .arch-fallback{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:rgba(244,237,230,.85)}
 .arch-fallback::before{content:"";position:absolute;inset:12px;border:1px solid rgba(244,237,230,.28);border-radius:999px 999px 2px 2px}
@@ -326,10 +326,6 @@ section{position:relative;padding:clamp(76px,13vw,128px) 0}
   <div class="hero-shade" aria-hidden="true"></div>
   <div class="grain" aria-hidden="true"></div>
   <a class="hero-mono" href="#top" data-mono></a>
-  <div class="lang" role="group" aria-label="Language">
-    <button type="button" data-lang="ru" aria-pressed="true">RU</button>
-    <button type="button" data-lang="en" aria-pressed="false">EN</button>
-  </div>
   <div class="hero-inner">
     <h1 class="names"><span class="n1" data-name="0"></span><span class="amp">&amp;</span><span class="n2" data-name="1"></span></h1>
     <p class="hero-date"><span data-date-dots></span><span class="sep"></span><span data-i18n="hero.place"></span></p>
@@ -672,7 +668,7 @@ section{position:relative;padding:clamp(76px,13vw,128px) 0}
       if (lift) el.style.setProperty('--lift', lift);
     });
   }
-  if (variant) applyVariant(variant);
+  applyVariant(variant);
   if (compareMode) {
     var vsw = document.createElement('div');
     vsw.className = 'vswitch'; vsw.setAttribute('role', 'group'); vsw.setAttribute('aria-label', 'Вариант оформления');
@@ -691,14 +687,7 @@ section{position:relative;padding:clamp(76px,13vw,128px) 0}
   var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); };
 
   /* ---------------- язык ---------------- */
-  var lang = (function () {
-    var q = new URLSearchParams(location.search).get('lang');
-    if (q === 'ru' || q === 'en') return q;
-    var saved = store.get('wedding.lang');
-    if (saved === 'ru' || saved === 'en') return saved;
-    var nav = (navigator.languages && navigator.languages[0]) || navigator.language || 'ru';
-    return /^(ru|uk|be|kk)/i.test(nav) ? 'ru' : 'en';
-  })();
+  var lang = 'ru';   // сайт только на русском
 
   function t(key, vars) {
     var s = (C.text && C.text[lang] && C.text[lang][key]);
@@ -837,6 +826,8 @@ section{position:relative;padding:clamp(76px,13vw,128px) 0}
     $$('[data-photo]').forEach(function (el) {
       var src = (C.photos || {})[el.getAttribute('data-photo')];
       if (!src) return;
+      var focus = (C.photoFocus || {})[el.getAttribute('data-photo')];
+      if (focus) el.style.setProperty('--focus', focus);
       var apply = function () { el.style.backgroundImage = 'url("' + src + '")'; el.classList.add('has-photo'); };
       if (photoCache[src] === true) return apply();
       if (photoCache[src] === false) return;

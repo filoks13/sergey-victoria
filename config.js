@@ -27,24 +27,14 @@ window.WEDDING = {
   // аккуратная декоративная заглушка, сайт не «ломается».
   photos: {
     hero:     'img/ring-color.jpg',    // обложка, фото на весь экран (кольцо)
-    ceremony: '',                      // обрядный зал ратуши — например 'img/ceremony.jpg'
-    banquet:  '',                      // Veranda by Gazda — например 'img/banquet.jpg'
-    closing:  'img/look-color.jpg', // финальный экран, фото на весь экран (Вика смотрит в кадр)
+    ceremony: 'img/ratusha.jpg',       // Жижковская ратуша
+    banquet:  'img/veranda.jpg',       // Veranda by Gazda
+    closing:  'img/closing-wall.jpg',  // финальный экран, фото на весь экран
   },
   // Какая часть фото всегда в кадре (по горизонтали и вертикали) — чтобы лица не обрезались.
-  photoFocus: { hero: '55% 25%', closing: '58% 20%' },
+  photoFocus: { hero: '55% 25%', closing: '52% 38%', ceremony: '50% 40%', banquet: '50% 50%' },
   // На телефоне поднять фото вверх (в % высоты экрана), чтобы текст снизу не закрывал главное.
   photoLift:  { hero: '18%' },
-
-  // ВАРИАНТЫ ОФОРМЛЕНИЯ — для сравнения.
-  //   сайт/?v=color — цветные фото, сайт/?v=bw — чёрно-белые
-  //   (с параметром вверху появляется переключатель «Цвет / Ч/Б»).
-  // Без параметра гости видят вариант из variant.
-  variant: 'color',
-  variants: {
-    color: { label: 'Цвет', photos: { hero: 'img/ring-color.jpg', closing: 'img/look-color.jpg' } },
-    bw:    { label: 'Ч/Б',  photos: { hero: 'img/ring-bw.jpg',    closing: 'img/look-bw.jpg' } },
-  },
 
   // ---------------- ТРАНСЛЯЦИЯ ----------------
   live: {
