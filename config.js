@@ -96,10 +96,10 @@ window.WEDDING = {
   // ---------------- ПРОГРАММА ----------------
   timeline: [
     { time: '12:00',
-      ru: { title: 'Сбор гостей', text: 'Встречаемся у Жижковской ратуши' },
+      ru: { title: 'Сбор гостей', text: 'Встречаемся в Жижковской ратуше' },
       en: { title: 'Guests arrive', text: 'We meet at Žižkov Town Hall' } },
     { time: '12:30', live: true,
-      ru: { title: 'Церемония', text: 'Торжественная регистрация брака' },
+      ru: { title: 'Церемония', text: 'Регистрация брака' },
       en: { title: 'Ceremony', text: 'The wedding ceremony' } },
     { time: '13:30',
       ru: { title: 'Фотографии', text: 'Фотографируемся, чтобы запомнить этот день' },
